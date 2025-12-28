@@ -37,12 +37,12 @@ Compared to the original version, **Hertz Ads** provides the following optimizat
 Install via Composer:
 
 ```bash
-composer require lucas0522/flarum-ext-ads
+composer require hertz-dev/flarum-ext-ads
 ```
 ♻️ Updating
 ```Bash
 
-composer update lucas0522/flarum-ext-ads
+composer update hertz-dev/flarum-ext-ads
 php flarum cache:clear
 ```
 ⚙️ Configuration
@@ -102,12 +102,12 @@ Credits: Based on the original work by David Wheatley.
 
 ```Bash
 
-composer require lucas0522/flarum-ext-ads
+composer require hertz-dev/flarum-ext-ads
 ```
 ♻️ 更新
 ```Bash
 
-composer update lucas0522/flarum-ext-ads
+composer update hertz-dev/flarum-ext-ads
 php flarum cache:clear
 ```
 ⚙️ 配置方法
