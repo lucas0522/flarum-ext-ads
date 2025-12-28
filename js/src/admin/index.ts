@@ -4,15 +4,16 @@ import SettingsPage from './components/SettingsPage';
 
 import type { CustomExtensionPage } from 'flarum/admin/utils/ExtensionData';
 
-app.initializers.add('davwheat/ads', () => {
+app.initializers.add('hertz/ads', () => {
   app.extensionData
-    .for('davwheat-ads')
+    .for('hertz-ads')
     .registerPage(SettingsPage as unknown as CustomExtensionPage)
     .registerPermission(
       {
         icon: 'fas fa-shield-alt',
-        permission: 'davwheat-ads.bypass-ads',
-        label: app.translator.trans('davwheat.ads.admin.permissions.bypassAds'),
+        permission: 'hertz-ads.bypass-ads',
+        // 修改点：davwheat -> hertz
+        label: app.translator.trans('hertz.ads.admin.permissions.bypassAds'),
         allowGuest: true,
       },
       'view'

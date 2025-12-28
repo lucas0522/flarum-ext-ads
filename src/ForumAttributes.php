@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Davwheat\Ads;
+namespace Hertz\Ads;
 
 use Flarum\Api\Serializer\ForumSerializer;
 
@@ -17,7 +17,7 @@ class ForumAttributes
     {
         $actor = $serializer->getActor();
 
-        $attributes['canBypassAds'] = $actor->can('davwheat-ads.bypass-ads');
+        $attributes['canBypassAds'] = $actor->can('hertz-ads.bypass-ads');
 
         return $attributes;
     }

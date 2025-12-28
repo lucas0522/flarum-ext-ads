@@ -1,12 +1,12 @@
 :root {
-  --davwheat-ads--discussion-sidebar-position: 80px;
+  --hertz-ads--discussion-sidebar-position: 80px;
 }
 
 @media @tablet-up {
   .DiscussionPage-nav,
   .DiscussionPage-nav > ul {
     position: sticky;
-    top: var(--davwheat-ads--discussion-sidebar-position);
+    top: var(--hertz-ads--discussion-sidebar-position);
   }
 
   .App {
@@ -15,15 +15,15 @@
 }
 
 // Hide these ad units on mobile
-.davwheat-ad-sidebar,
-.davwheat-ad-discussion-sidebar {
+.hertz-ad-sidebar,
+.hertz-ad-discussion-sidebar {
   display: none;
 }
 
 // And show them on desktop
 @media @desktop-up {
-  .davwheat-ad-sidebar,
-  .davwheat-ad-discussion-sidebar {
+  .hertz-ad-sidebar,
+  .hertz-ad-discussion-sidebar {
     display: block;
   }
 }
@@ -32,7 +32,7 @@
   display: inline-table;
 }
 
-.davwheat-ad {
+.hertz-ad {
   ins.adsbygoogle[data-ad-status="unfilled"] {
     // Hide unfilled ads
     display: none !important;

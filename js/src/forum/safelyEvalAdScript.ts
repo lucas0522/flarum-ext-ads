@@ -10,7 +10,7 @@ export default function safelyEvalAdScript(adPosition: string, script: string): 
   try {
     eval(script);
   } catch (e) {
-    console.group('[davwheat/ads] Failed to execute ad script');
+    console.group('[hertz/ads] Failed to execute ad script');
     console.info(`An exception occurred while evaluating the ad script for location "${adPosition}".
 
 To prevent your forum frontend breaking, we caught the error. Please be aware, however, that this may prevent your ads functioning in some cases.`);

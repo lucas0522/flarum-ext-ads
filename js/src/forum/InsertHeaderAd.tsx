@@ -10,8 +10,8 @@ import safelyEvalAdScript from './safelyEvalAdScript';
 import areAdsBypassed from './areAdsBypassed';
 
 export default function InsertHeaderAd() {
-  const AdCode = app.data['davwheat-ads.ad-code.header'] as string;
-  const Script = app.data['davwheat-ads.ad-code.header.js'] as string;
+  const AdCode = app.data['hertz-ads.ad-code.header'] as string;
+  const Script = app.data['hertz-ads.ad-code.header.js'] as string;
 
   const Html = m.trust(AdCode) as ReturnType<Mithril.Static['trust']>;
 
@@ -21,7 +21,8 @@ export default function InsertHeaderAd() {
     return (
       <>
         {originalHero()}
-        <div align="center" class="davwheat-ad davwheat-ad-header">
+        {/* 修改点：类名改为 hertz-ad */}
+        <div align="center" class="hertz-ad hertz-ad-header">
           {Html}
         </div>
       </>

@@ -57,18 +57,18 @@ export default class SettingsPage extends ExtensionPage {
   oninit(vnode) {
     super.oninit(vnode);
 
-    this.state.enabledLocations = JSON.parse(app.data.settings['davwheat-ads.enabled-ad-locations'] || '[]');
+    this.state.enabledLocations = JSON.parse(app.data.settings['hertz-ads.enabled-ad-locations'] || '[]');
 
     AllAdUnitLocations.forEach((location) => {
-      this.state.code[location] = app.data.settings[`davwheat-ads.ad-code.${location}`] || '';
-      this.state.code[`${location}.js`] = app.data.settings[`davwheat-ads.ad-code.${location}.js`] || '';
+      this.state.code[location] = app.data.settings[`hertz-ads.ad-code.${location}`] || '';
+      this.state.code[`${location}.js`] = app.data.settings[`hertz-ads.ad-code.${location}.js`] || '';
     });
 
-    this.state.pubId = app.data.settings['davwheat-ads.ca-pub-id'] || '';
-    this.state.betweenNPosts = parseInt(app.data.settings['davwheat-ads.between-n-posts']);
-    this.state.enableAdAfterPlaceholder = app.data.settings['davwheat-ads.enable-ad-after-placeholder'] === '1';
+    this.state.pubId = app.data.settings['hertz-ads.ca-pub-id'] || '';
+    this.state.betweenNPosts = parseInt(app.data.settings['hertz-ads.between-n-posts']);
+    this.state.enableAdAfterPlaceholder = app.data.settings['hertz-ads.enable-ad-after-placeholder'] === '1';
 
-    this.state.script_urls = JSON.parse(app.data.settings['davwheat-ads.custom_ad_script_urls'] || '[]');
+    this.state.script_urls = JSON.parse(app.data.settings['hertz-ads.custom_ad_script_urls'] || '[]');
   }
 
   content() {
@@ -184,14 +184,14 @@ export default class SettingsPage extends ExtensionPage {
           </Switch>
         </fieldset>
 
-        <aside class="davwheat-ads-notice">{translate('warning', { script: <code>&lt;script&gt;</code> })}</aside>
+        <aside class="hertz-ads-notice">{translate('warning', { script: <code>&lt;script&gt;</code> })}</aside>
 
         <fieldset class="Form-group">
           {AllAdUnitLocations.map((location) => (
             <fieldset>
               <legend>{app.translator.trans(`davwheat.ads.lib.locations.${location}`)}</legend>
 
-              <div class="davwheat-ads__code-boxes">
+              <div class="hertz-ads__code-boxes">
                 <label>
                   {translate('code_input')}
                   <textarea
@@ -279,14 +279,14 @@ export default class SettingsPage extends ExtensionPage {
     }
 
     await saveSettings({
-      'davwheat-ads.enabled-ad-locations': JSON.stringify(this.state.enabledLocations),
-      'davwheat-ads.ca-pub-id': this.state.pubId,
-      'davwheat-ads.custom-ad-script-urls': JSON.stringify(this.state.script_urls.filter((url) => url.length > 0)),
-      'davwheat-ads.between-n-posts': this.state.betweenNPosts,
-      'davwheat-ads.enable-ad-after-placeholder': this.state.enableAdAfterPlaceholder ? 1 : 0,
+      'hertz-ads.enabled-ad-locations': JSON.stringify(this.state.enabledLocations),
+      'hertz-ads.ca-pub-id': this.state.pubId,
+      'hertz-ads.custom-ad-script-urls': JSON.stringify(this.state.script_urls.filter((url) => url.length > 0)),
+      'hertz-ads.between-n-posts': this.state.betweenNPosts,
+      'hertz-ads.enable-ad-after-placeholder': this.state.enableAdAfterPlaceholder ? 1 : 0,
 
       ...Object.keys(this.state.code).reduce((prev, curr) => {
-        return { ...prev, [`davwheat-ads.ad-code.${curr}`]: this.state.code[curr as AdUnitLocations] };
+        return { ...prev, [`hertz-ads.ad-code.${curr}`]: this.state.code[curr as AdUnitLocations] };
       }, {}),
     });
 

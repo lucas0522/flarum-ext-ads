@@ -1,5 +1,5 @@
 {
-  "name": "@davwheat/ads",
+  "name": "@hertz/ads",
   "version": "0.0.0",
   "private": true,
   "prettier": "@flarum/prettier-config",

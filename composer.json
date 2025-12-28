@@ -1,5 +1,5 @@
 {
-    "name": "davwheat/flarum-ext-ads",
+    "name": "hertz/flarum-ext-ads",
     "description": "Ads support for your Flarum forum.",
     "keywords": [
         "flarum",
@@ -10,28 +10,32 @@
     "type": "flarum-extension",
     "license": "MIT",
     "require": {
-        "flarum/core": "^1.2.0"
+        "flarum/core": "^1.8.0"
     },
     "authors": [
         {
-            "name": "David Wheatley",
-            "email": "hi@davwheat.dev",
+            "name": "Hertz",
+            "email": "echo@onehz.cc",
             "role": "Developer"
+        },
+        {
+            "name": "David Wheatley",
+            "role": "Original Author"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Davwheat\\Ads\\": "src/"
+            "Hertz\\Ads\\": "src/"
         }
     },
     "extra": {
         "flarum-extension": {
-            "title": "davwheat Ad Units",
+            "title": "Hertz Ads",
             "category": "feature",
             "icon": {
                 "name": "fas fa-ad",
-                "backgroundColor": "#51c5dd",
-                "color": "#000"
+                "backgroundColor": "#e74c3c",
+                "color": "#fff"
             }
         }
     }

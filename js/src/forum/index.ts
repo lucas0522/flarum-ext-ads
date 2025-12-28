@@ -8,8 +8,18 @@ import InsertFooterAd from './InsertFooterAd';
 import InsertHeaderAd from './InsertHeaderAd';
 import InsertSidebarAd from './InsertSidebarAd';
 
-app.initializers.add('davwheat/ads', () => {
-  const enabledSlots: AdUnitLocations[] = JSON.parse(app.data['davwheat-ads.enabled-ad-locations']);
+// 修改点：注册 ID 改为 hertz/ads
+app.initializers.add('hertz/ads', () => {
+  // 安全修复：如果设置不存在，默认使用空数组 '[]'，防止 JSON.parse 报错导致白屏
+  const rawSettings = app.data['hertz-ads.enabled-ad-locations'] as string || '[]';
+  
+  let enabledSlots: AdUnitLocations[] = [];
+  try {
+      enabledSlots = JSON.parse(rawSettings);
+  } catch (e) {
+      console.error('[hertz/ads] Failed to parse enabled locations settings.', e);
+      enabledSlots = [];
+  }
 
   if (enabledSlots.includes('header')) {
     InsertHeaderAd();

@@ -1,18 +1,17 @@
 <?php
 
 /*
- * This file is part of davwheat/ads.
+ * This file is part of hertz/flarum-ext-ads.
  *
- * Copyright (c) 2021 David Wheatley.
+ * Copyright (c) 2025 Hertz.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
 
-namespace Davwheat\Ads;
+namespace Hertz\Ads;
 
 use Flarum\Extend;
-use Davwheat\Ads\Extend\ExtensionSettings;
 use Flarum\Api\Serializer\ForumSerializer;
 
 return [
@@ -30,22 +29,27 @@ return [
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(ForumAttributes::class),
 
-    (new ExtensionSettings())
-        ->addKey('davwheat-ads.ad-code.between_posts', '')
-        ->addKey('davwheat-ads.ad-code.discussion_header', '')
-        ->addKey('davwheat-ads.ad-code.discussion_sidebar', '')
-        ->addKey('davwheat-ads.ad-code.footer', '')
-        ->addKey('davwheat-ads.ad-code.header', '')
-        ->addKey('davwheat-ads.ad-code.sidebar', '')
+    // --- ⬇️ 修改重点：使用 Flarum 原生设置扩展器 (无需 ExtensionSettings.php) ---
+    (new Extend\Settings())
+        // 纯 HTML 广告代码
+        ->serializeToForum('hertz-ads.ad-code.between_posts', 'hertz-ads.ad-code.between_posts')
+        ->serializeToForum('hertz-ads.ad-code.discussion_header', 'hertz-ads.ad-code.discussion_header')
+        ->serializeToForum('hertz-ads.ad-code.discussion_sidebar', 'hertz-ads.ad-code.discussion_sidebar')
+        ->serializeToForum('hertz-ads.ad-code.footer', 'hertz-ads.ad-code.footer')
+        ->serializeToForum('hertz-ads.ad-code.header', 'hertz-ads.ad-code.header')
+        ->serializeToForum('hertz-ads.ad-code.sidebar', 'hertz-ads.ad-code.sidebar')
 
-        ->addKey('davwheat-ads.ad-code.between_posts.js', '')
-        ->addKey('davwheat-ads.ad-code.discussion_header.js', '')
-        ->addKey('davwheat-ads.ad-code.discussion_sidebar.js', '')
-        ->addKey('davwheat-ads.ad-code.footer.js', '')
-        ->addKey('davwheat-ads.ad-code.header.js', '')
-        ->addKey('davwheat-ads.ad-code.sidebar.js', '')
+        // 配套的 JS 代码
+        ->serializeToForum('hertz-ads.ad-code.between_posts.js', 'hertz-ads.ad-code.between_posts.js')
+        ->serializeToForum('hertz-ads.ad-code.discussion_header.js', 'hertz-ads.ad-code.discussion_header.js')
+        ->serializeToForum('hertz-ads.ad-code.discussion_sidebar.js', 'hertz-ads.ad-code.discussion_sidebar.js')
+        ->serializeToForum('hertz-ads.ad-code.footer.js', 'hertz-ads.ad-code.footer.js')
+        ->serializeToForum('hertz-ads.ad-code.header.js', 'hertz-ads.ad-code.header.js')
+        ->serializeToForum('hertz-ads.ad-code.sidebar.js', 'hertz-ads.ad-code.sidebar.js')
 
-        ->addKey('davwheat-ads.between-n-posts', 15)
-        ->addKey('davwheat-ads.enable-ad-after-placeholder', 0)
-        ->addKey('davwheat-ads.enabled-ad-locations', '[]')
+        // 设置默认值
+        ->serializeToForum('hertz-ads.between-n-posts', 'hertz-ads.between-n-posts', 15) // 第三个参数是默认值
+        ->serializeToForum('hertz-ads.enable-ad-after-placeholder', 'hertz-ads.enable-ad-after-placeholder', 0)
+        ->serializeToForum('hertz-ads.enabled-ad-locations', 'hertz-ads.enabled-ad-locations', '[]'),
+    // --- ⬆️ 修改结束 ---
 ];

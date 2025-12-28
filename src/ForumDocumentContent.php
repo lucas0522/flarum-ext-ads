@@ -7,7 +7,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Davwheat\Ads;
+namespace Hertz\Ads;
 
 use Flarum\Frontend\Document;
 use Flarum\Http\RequestUtil;
@@ -30,12 +30,12 @@ class ForumDocumentContent
     {
         $actor = RequestUtil::getActor($request);
 
-        if ($actor->can('davwheat-ads.bypass-ads')) {
+        if ($actor->can('hertz-ads.bypass-ads')) {
             // Don't add ad code to the frontend page content
             return;
         }
 
-        $caPubId = $this->settings->get('davwheat-ads.ca-pub-id', '');
+        $caPubId = $this->settings->get('hertz-ads.ca-pub-id', '');
 
         if ($caPubId !== '') {
             $url = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=$caPubId";
@@ -46,7 +46,13 @@ class ForumDocumentContent
         /**
          * @var array
          */
-        $scripts = json_decode($this->settings->get('davwheat-ads.custom-ad-script-urls', '[]'), true);
+        $rawScripts = $this->settings->get('hertz-ads.custom-ad-script-urls', '[]');
+        $scripts = json_decode($rawScripts, true);
+
+        // 如果解析失败或不是数组，强制为空数组，防止报错
+        if (!is_array($scripts)) {
+        $scripts = [];
+        }
 
         foreach ($scripts as $script) {
             $document->head[] = "<script async src=\"$script\"></script>";
