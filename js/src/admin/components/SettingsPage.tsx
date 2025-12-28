@@ -10,7 +10,8 @@ import { AdUnitLocations, AllAdUnitLocations } from '../../common/AdUnitLocation
 
 import type Mithril from 'mithril';
 
-const translate = (key: string, data?: Record<string, unknown>): Mithril.Children => app.translator.trans(`davwheat.ads.admin.settings.${key}`, data);
+// 修改点 1：davwheat -> hertz
+const translate = (key: string, data?: Record<string, unknown>): Mithril.Children => app.translator.trans(`hertz.ads.admin.settings.${key}`, data);
 
 export interface ISettingsPageState {
   script_urls: string[];
@@ -147,7 +148,8 @@ export default class SettingsPage extends ExtensionPage {
               }}
               disabled={this.state.loading}
             >
-              {app.translator.trans(`davwheat.ads.lib.locations.${location}`)}
+              {/* 修改点 2：davwheat -> hertz */}
+              {app.translator.trans(`hertz.ads.lib.locations.${location}`)}
             </Switch>
           ))}
         </fieldset>
@@ -189,7 +191,8 @@ export default class SettingsPage extends ExtensionPage {
         <fieldset class="Form-group">
           {AllAdUnitLocations.map((location) => (
             <fieldset>
-              <legend>{app.translator.trans(`davwheat.ads.lib.locations.${location}`)}</legend>
+              {/* 修改点 3：davwheat -> hertz */}
+              <legend>{app.translator.trans(`hertz.ads.lib.locations.${location}`)}</legend>
 
               <div class="hertz-ads__code-boxes">
                 <label>
@@ -271,7 +274,8 @@ export default class SettingsPage extends ExtensionPage {
       return false;
     });
 
-    if (doesCodeHaveScriptTag && !(window as any).__davwheatAds_bypassScriptCheck) {
+    // 修改点 4：davwheat -> hertz (全局变量名也得改，不然没法跳过检查)
+    if (doesCodeHaveScriptTag && !(window as any).__hertzAds_bypassScriptCheck) {
       app.alerts.show({ type: 'error' }, translate('alert.code_has_script'));
 
       this.state.loading = false;

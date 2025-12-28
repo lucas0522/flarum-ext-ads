@@ -37,13 +37,14 @@ Compared to the original version, **Hertz Ads** provides the following optimizat
 Install via Composer:
 
 ```bash
-composer require hertz/flarum-ext-ads
+composer require lucas0522/flarum-ext-ads
 ```
 ♻️ Updating
-Bash
+```Bash
 
-composer update hertz/flarum-ext-ads
+composer update lucas0522/flarum-ext-ads
 php flarum cache:clear
+```
 ⚙️ Configuration
 Go to your Flarum Administration Dashboard.
 
@@ -60,8 +61,9 @@ Credits: Based on the original work by David Wheatley.
 
 <a name="简体中文"></a>
 
-🇨🇳 简体中文
-Hertz Ads 是一款专为 Flarum 打造的高性能广告管理扩展。
+## 🇨🇳 简体中文
+
+**Hertz Ads** 是一款专为 Flarum 打造的高性能广告管理扩展。
 
 本项目是原 davwheat/ads 插件的优化分支（Fork）。我们修复了原版存在的严重性能瓶颈（页面滚动卡顿）和白屏崩溃问题，使其更适合生产环境使用。
 
@@ -100,12 +102,12 @@ Hertz Ads 是一款专为 Flarum 打造的高性能广告管理扩展。
 
 ```Bash
 
-composer require hertz/flarum-ext-ads
+composer require lucas0522/flarum-ext-ads
 ```
 ♻️ 更新
 ```Bash
 
-composer update hertz/flarum-ext-ads
+composer update lucas0522/flarum-ext-ads
 php flarum cache:clear
 ```
 ⚙️ 配置方法
