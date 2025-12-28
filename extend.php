@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of hertz/flarum-ext-ads.
+ * This file is part of lucas0522/flarum-ext-ads.
  *
  * Copyright (c) 2025 Hertz.
  *
@@ -29,9 +29,8 @@ return [
     (new Extend\ApiSerializer(ForumSerializer::class))
         ->attributes(ForumAttributes::class),
 
-    // --- ⬇️ 修改重点：使用 Flarum 原生设置扩展器 (无需 ExtensionSettings.php) ---
     (new Extend\Settings())
-        // 纯 HTML 广告代码
+        // 纯 HTML 广告代码 (无需默认值，前两个参数即可)
         ->serializeToForum('hertz-ads.ad-code.between_posts', 'hertz-ads.ad-code.between_posts')
         ->serializeToForum('hertz-ads.ad-code.discussion_header', 'hertz-ads.ad-code.discussion_header')
         ->serializeToForum('hertz-ads.ad-code.discussion_sidebar', 'hertz-ads.ad-code.discussion_sidebar')
@@ -47,9 +46,8 @@ return [
         ->serializeToForum('hertz-ads.ad-code.header.js', 'hertz-ads.ad-code.header.js')
         ->serializeToForum('hertz-ads.ad-code.sidebar.js', 'hertz-ads.ad-code.sidebar.js')
 
-        // 设置默认值
-        ->serializeToForum('hertz-ads.between-n-posts', 'hertz-ads.between-n-posts', 15) // 第三个参数是默认值
-        ->serializeToForum('hertz-ads.enable-ad-after-placeholder', 'hertz-ads.enable-ad-after-placeholder', 0)
-        ->serializeToForum('hertz-ads.enabled-ad-locations', 'hertz-ads.enabled-ad-locations', '[]'),
-    // --- ⬆️ 修改结束 ---
+        // ✅ 修正点：在默认值前加了 null
+        ->serializeToForum('hertz-ads.between-n-posts', 'hertz-ads.between-n-posts', null, 15)
+        ->serializeToForum('hertz-ads.enable-ad-after-placeholder', 'hertz-ads.enable-ad-after-placeholder', null, 0)
+        ->serializeToForum('hertz-ads.enabled-ad-locations', 'hertz-ads.enabled-ad-locations', null, '[]'),
 ];
