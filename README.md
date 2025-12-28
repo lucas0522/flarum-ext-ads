@@ -1,42 +1,58 @@
-# davwheat Ad Units
+# Hertz Ads for Flarum
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/davwheat/flarum-ext-ads.svg)](https://packagist.org/packages/davwheat/flarum-ext-ads) [![Total Downloads](https://img.shields.io/packagist/dt/davwheat/flarum-ext-ads.svg)](https://packagist.org/packages/davwheat/flarum-ext-ads) ![](https://flarum-badge-api.davwheat.dev/v1/compat-latest/davwheat/flarum-ext-ads)
+![License](https://img.shields.io/badge/license-MIT-blue.svg) ![Flarum](https://img.shields.io/badge/Flarum-1.8%2B-e74c3c.svg)
 
-A [Flarum](http://flarum.org) extension that provides ad unit support for your Flarum forum.
+[English](#english) | [简体中文](#简体中文)
 
-## Special thanks
+---
 
-Thank you to @"alphadot"#36731 and @"MikeJones"#17198 for sponsoring this extension! 🥰 
+<a name="english"></a>
+## 🇬🇧 English
 
-## Installation
+**Hertz Ads** is a modernized, high-performance advertisement management extension for Flarum.
 
-Install with composer:
+It is an optimized fork of the original `davwheat/ads`, designed to fix performance bottlenecks (layout thrashing) and stability issues found in the original version.
 
-```sh
-composer require davwheat/flarum-ext-ads:"*"
-```
+### ✨ Key Improvements
+Compared to the original version, **Hertz Ads** provides the following optimizations:
 
-## Updating
+1.  **🚀 Performance Optimization:**
+    * Rewrote the sidebar ad rendering logic. Replaced the heavy `getComputedStyle` calls (which caused layout thrashing and scroll lag) with lightweight `window.innerWidth` checks.
+2.  **🛡️ Stability Fixes:**
+    * Fixed a critical "White Screen" crash caused by empty settings in the database. Added robust fallback mechanisms for JSON parsing.
+3.  **📱 Modernization:**
+    * Refactored backend settings using Flarum 1.8+ native `Extend\Settings` API.
+    * Fully rebranded namespace to prevent conflicts.
 
-```sh
-composer update davwheat/flarum-ext-ads:"*"
-php flarum migrate
+### 📍 Supported Locations
+* **Header:** Above the content area.
+* **Footer:** Fixed at the bottom of the page.
+* **Sidebar:** Left sidebar (Desktop only).
+* **Between Posts:** Insert ads after every X posts in a discussion.
+* **Discussion Header:** Above the post stream in a discussion.
+* **Discussion Sidebar:** In the discussion sidebar (Desktop only).
+
+### 📥 Installation
+
+Install via Composer:
+
+```bash
+composer require hertz/flarum-ext-ads
+
+♻️ Updating
+composer update hertz/flarum-ext-ads
 php flarum cache:clear
-```
 
-## Usage
+⚙️ Configuration
+Go to your Flarum Administration Dashboard.
 
-Head to your admin dashboard and enable the extension. Switch on the Ad Unit locations you'd like, then paste your ad code in the textboxes below.
+Enable Hertz Ads.
 
-If you use "between post" ads, make sure to configure the gap between ads in the extension settings page.
+Go to the settings page, paste your HTML/JS ad codes (e.g., Google AdSense), and enable the desired locations.
 
-> ⚠️ **If you use Google AdSense**, only insert the `<ins>` tag into the textbox.
+Note: If you are migrating from davwheat/ads, you must uninstall the old extension first. Settings will not be automatically migrated as this extension uses a new database namespace to ensure stability.
 
+📄 License
+Released under the MIT License.
 
-> ⚠️ The text boxes **do not** support `<script>` tags. These scripts will not be executed if you enter them into the text boxes, due to how Mithril functions.
-
-## Links
-
-- [Packagist](https://packagist.org/packages/davwheat/flarum-ext-ads)
-- [GitHub](https://github.com/davwheat/flarum-ext-ads)
-- [Discuss](https://discuss.flarum.org/d/28506)
+Credits: Based on the original work by David Wheatley.
