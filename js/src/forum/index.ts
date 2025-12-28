@@ -11,7 +11,7 @@ import InsertSidebarAd from './InsertSidebarAd';
 // 修改点：注册 ID 改为 hertz/ads
 app.initializers.add('hertz/ads', () => {
   // 安全修复：如果设置不存在，默认使用空数组 '[]'，防止 JSON.parse 报错导致白屏
-  const rawSettings = app.data['hertz-ads.enabled-ad-locations'] as string || '[]';
+  const rawSettings = app.forum.attribute<string>('hertz-ads.enabled-ad-locations') || '[]';
   
   let enabledSlots: AdUnitLocations[] = [];
   try {

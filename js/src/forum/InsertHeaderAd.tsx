@@ -10,8 +10,8 @@ import safelyEvalAdScript from './safelyEvalAdScript';
 import areAdsBypassed from './areAdsBypassed';
 
 export default function InsertHeaderAd() {
-  const AdCode = app.data['hertz-ads.ad-code.header'] as string;
-  const Script = app.data['hertz-ads.ad-code.header.js'] as string;
+  const AdCode = app.forum.attribute('hertz-ads.ad-code.header') as string;
+  const Script = app.forum.attribute('hertz-ads.ad-code.header.js') as string;
 
   const Html = m.trust(AdCode) as ReturnType<Mithril.Static['trust']>;
 

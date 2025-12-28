@@ -69,7 +69,7 @@ export default class SettingsPage extends ExtensionPage {
     this.state.betweenNPosts = parseInt(app.data.settings['hertz-ads.between-n-posts']);
     this.state.enableAdAfterPlaceholder = app.data.settings['hertz-ads.enable-ad-after-placeholder'] === '1';
 
-    this.state.script_urls = JSON.parse(app.data.settings['hertz-ads.custom_ad_script_urls'] || '[]');
+    this.state.script_urls = JSON.parse(app.data.settings['hertz-ads.custom-ad-script-urls'] || '[]');
   }
 
   content() {

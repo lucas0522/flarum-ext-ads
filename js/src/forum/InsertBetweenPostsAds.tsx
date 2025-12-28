@@ -10,8 +10,8 @@ import areAdsBypassed from './areAdsBypassed';
 import type Mithril from 'mithril';
 
 export default function InsertBetweenPostsAds() {
-  const AdCode = app.data['hertz-ads.ad-code.between_posts'] as string;
-  const Script = app.data['hertz-ads.ad-code.between_posts.js'] as string;
+  const AdCode = app.forum.attribute('hertz-ads.ad-code.between_posts') as string;
+  const Script = app.forum.attribute('hertz-ads.ad-code.between_posts.js') as string;
 
   const Html = m.trust(AdCode) as ReturnType<Mithril.Static['trust']>;
 
@@ -24,7 +24,7 @@ export default function InsertBetweenPostsAds() {
       const curr = [...itemList, currentItem];
 
       // 修改点：Key 改为 hertz-ads
-      if (i + 1 < items.length && i % (parseInt(app.data['hertz-ads.between-n-posts'] as string) || 15) === 0) {
+      if (i + 1 < items.length && i % (parseInt(app.forum.attribute('hertz-ads.between-n-posts') as string) || 15) === 0) {
         curr.push(
           <aside key={`hertz-ad-${i}`} class="PostStream-item">
             <div class="hertz-ad hertz-ad-between-posts">{Html}</div>
@@ -36,7 +36,7 @@ export default function InsertBetweenPostsAds() {
     }, [] as any[]);
 
     // 修改点：Key 改为 hertz-ads
-    if (app.data['hertz-ads.enable-ad-after-placeholder'] === '1') {
+    if (app.forum.attribute('hertz-ads.enable-ad-after-placeholder') === '1') {
       newItems.push(
         <aside key={`hertz-ad-after-placeholder`} class="PostStream-item">
           <div class="hertz-ad hertz-ad-between-posts hertz-ad-between-posts--after-placeholder">{Html}</div>

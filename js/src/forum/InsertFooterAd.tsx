@@ -6,8 +6,8 @@ import RefreshAds from './RefreshAds';
 import safelyEvalAdScript from './safelyEvalAdScript';
 
 export default function InsertFooterAd() {
-  const AdCode = app.data['hertz-ads.ad-code.footer'] as string;
-  const Script = app.data['hertz-ads.ad-code.footer.js'] as string;
+  const AdCode = app.forum.attribute('hertz-ads.ad-code.footer') as string;
+  const Script = app.forum.attribute('hertz-ads.ad-code.footer.js') as string;
 
   if (!AdCode) return;
 

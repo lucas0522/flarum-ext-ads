@@ -6,7 +6,7 @@ import type { CustomExtensionPage } from 'flarum/admin/utils/ExtensionData';
 
 app.initializers.add('hertz/ads', () => {
   app.extensionData
-    .for('hertz-ads')
+    .for('hertz-dev-ads')
     .registerPage(SettingsPage as unknown as CustomExtensionPage)
     .registerPermission(
       {

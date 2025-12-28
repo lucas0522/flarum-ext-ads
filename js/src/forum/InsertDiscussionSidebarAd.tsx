@@ -9,8 +9,8 @@ import safelyEvalAdScript from './safelyEvalAdScript';
 import areAdsBypassed from './areAdsBypassed';
 
 export default function InsertDiscussionSidebarAd() {
-  const AdCode = app.data['hertz-ads.ad-code.discussion_sidebar'] as string;
-  const Script = app.data['hertz-ads.ad-code.discussion_sidebar.js'] as string;
+  const AdCode = app.forum.attribute('hertz-ads.ad-code.discussion_sidebar') as string;
+  const Script = app.forum.attribute('hertz-ads.ad-code.discussion_sidebar.js') as string;
 
   if (!AdCode) return;
 
