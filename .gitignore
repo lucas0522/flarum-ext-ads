@@ -1,3 +1,7 @@
+/vendor
 js/node_modules
-vendor/
-.vscode/
+.DS_Store
+Thumbs.db
+.idea
+.vscode
+*.log
