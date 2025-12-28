@@ -1,5 +1,5 @@
 {
-    "name": "hertz/flarum-ext-ads",
+    "name": "lucas0522/flarum-ext-ads",
     "description": "Ads support for your Flarum forum.",
     "keywords": [
         "flarum",
@@ -36,7 +36,8 @@
                 "name": "fas fa-ad",
                 "backgroundColor": "#e74c3c",
                 "color": "#fff"
-            }
+            },
+            "id": "hertz-ads"
         }
     }
 }
