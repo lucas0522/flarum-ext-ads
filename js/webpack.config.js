@@ -1,17 +1,27 @@
 const config = require('flarum-webpack-config');
 const path = require('path');
 
-// 1. 先生成基础配置（让它报它的错，我们不理它）
+// 生成基础配置
 const webpackConfig = config({
   useExtensions: ['.ts', '.tsx', '.js', '.jsx']
 });
 
-// 2. 【核心修复】暴力覆盖入口配置
-// 不管上面检测到了什么，这里强行指定我们要编译的文件
+// 1. 【保持原样】暴力指定入口，确保能找到文件
 webpackConfig.entry = {
   admin: path.resolve(__dirname, './src/admin/index.ts'),
   forum: path.resolve(__dirname, './src/forum/index.ts')
 };
 
-// 3. 导出修改后的配置
+// 2. 【核心修复】配置 Externals (外部依赖)
+// 告诉 Webpack：当代码里 import 'mithril' 时，不要把包打进去，
+// 而是去浏览器全局变量里找 'm'。这能解决 module.exports 报错。
+const originalExternals = webpackConfig.externals || [];
+webpackConfig.externals = [
+  // 保留 Flarum 原有的外部依赖配置
+  ...(Array.isArray(originalExternals) ? originalExternals : [originalExternals]),
+  {
+    'mithril': 'm' // 映射规则：import ... from 'mithril' -> window.m
+  }
+];
+
 module.exports = webpackConfig;

@@ -1,54 +1,26 @@
+import { extend } from 'flarum/common/extend';
 import app from 'flarum/forum/app';
-import type { AdUnitLocations } from 'src/common/AdUnitLocations';
 import InsertBetweenPostsAds from './InsertBetweenPostsAds';
-
 import InsertDiscussionPageHeaderAd from './InsertDiscussionPageHeaderAd';
 import InsertDiscussionSidebarAd from './InsertDiscussionSidebarAd';
 import InsertFooterAd from './InsertFooterAd';
 import InsertHeaderAd from './InsertHeaderAd';
 import InsertSidebarAd from './InsertSidebarAd';
 
-// ✅ 修改 1: 统一 ID 为 'hertz-dev-ads' (与 composer.json 和 admin 端保持一致)
+console.log('🔥 [Hertz-Debug] index.ts 已加载，等待组件注册...');
+
 app.initializers.add('hertz-dev-ads', () => {
+  console.log('🔥 [Hertz-Debug] 初始化器开始运行。此时不检查设置，直接注册所有组件。');
   
-  // ✅ 修改 2: 增加环境检查 (这是修复报错的关键！)
-  // 如果当前环境没有 app.forum (比如在后台 Admin)，直接退出，防止崩溃。
-  if (!app.forum) {
-    return;
-  }
+  // 直接注册所有广告组件
+  // 具体的“开关检查”和“读取代码”逻辑，全部下放到组件内部去执行
+  // 这样可以避开初始化时 app.forum 数据未准备好的问题
+  InsertHeaderAd();
+  InsertDiscussionPageHeaderAd();
+  InsertFooterAd();
+  InsertBetweenPostsAds();
+  InsertSidebarAd();
+  InsertDiscussionSidebarAd();
 
-  // 安全修复：如果设置不存在，默认使用空数组 '[]'
-  const rawSettings = app.forum.attribute<string>('hertz-ads.enabled-ad-locations') || '[]';
-  
-  let enabledSlots: AdUnitLocations[] = [];
-  try {
-      enabledSlots = JSON.parse(rawSettings);
-  } catch (e) {
-      console.error('[hertz-dev-ads] Failed to parse enabled locations settings.', e);
-      enabledSlots = [];
-  }
-
-  if (enabledSlots.includes('header')) {
-    InsertHeaderAd();
-  }
-
-  if (enabledSlots.includes('discussion_header')) {
-    InsertDiscussionPageHeaderAd();
-  }
-
-  if (enabledSlots.includes('footer')) {
-    InsertFooterAd();
-  }
-
-  if (enabledSlots.includes('between_posts')) {
-    InsertBetweenPostsAds();
-  }
-
-  if (enabledSlots.includes('sidebar')) {
-    InsertSidebarAd();
-  }
-
-  if (enabledSlots.includes('discussion_sidebar')) {
-    InsertDiscussionSidebarAd();
-  }
+  console.log('✅ [Hertz-Debug] 所有组件注册完毕 (懒加载模式)');
 });

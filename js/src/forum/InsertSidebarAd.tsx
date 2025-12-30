@@ -1,40 +1,43 @@
 import app from 'flarum/forum/app';
 import { extend } from 'flarum/common/extend';
 import IndexPage from 'flarum/forum/components/IndexPage';
-import type * as Mithril from 'mithril';
+import m from 'mithril';
 import RefreshAds from './RefreshAds';
-import type ItemList from 'flarum/common/utils/ItemList';
 import safelyEvalAdScript from './safelyEvalAdScript';
 import areAdsBypassed from './areAdsBypassed';
 
 export default function InsertSidebarAd() {
-  const AdCode = app.forum.attribute('hertz-ads.ad-code.sidebar') as string;
-  const Script = app.forum.attribute('hertz-ads.ad-code.sidebar.js') as string;
+  extend(IndexPage.prototype, 'sidebarItems', function (items) {
+    const settings = app.forum.attribute<string>('hertz-ads.enabled-ad-locations') || '[]';
+    if (!settings.includes('sidebar')) return;
 
-  if (!AdCode) return;
+    if (areAdsBypassed()) return;
 
-  const Html = m.trust(AdCode) as ReturnType<Mithril.Static['trust']>;
+    const AdCode = app.forum.attribute('hertz-ads.ad-code.sidebar') as string;
+    if (!AdCode) return;
 
-  // 辅助函数：检查是否是桌面端
-  const isDesktop = () => window.innerWidth >= 768;
-
-  extend(IndexPage.prototype, 'sidebarItems', function (this: IndexPage, items: ItemList<Mithril.Children>) {
-    if (areAdsBypassed() || app.current.get('routeName') === 'tags') return;
-
-    // Only show sidebar ad on desktop and tablet
-    if (isDesktop()) {
-      // 修改点：davwheat-ad -> hertz-ad
-      items.add('hertz-ads', <div class="hertz-ad hertz-ad-sidebar">{Html}</div>, -1000);
-    }
+    items.add(
+      'hertz-ad-sidebar',
+      <div className="hertz-ad hertz-ad-sidebar" style={{textAlign: 'center', marginBottom: '20px'}}>
+        {m.trust(AdCode)}
+      </div>,
+      -100
+    );
   });
+  
+  extend(IndexPage.prototype, 'oncreate', function () {
+    const settings = app.forum.attribute<string>('hertz-ads.enabled-ad-locations') || '[]';
+    if (!settings.includes('sidebar')) return;
+    
+    if (areAdsBypassed()) return;
 
-  extend(IndexPage.prototype, ['oncreate', 'onupdate'], function (this: IndexPage) {
-    if (areAdsBypassed() || app.current.get('routeName') === 'tags') return;
-
-    // 修改点：查询选择器也必须改
-    if (document.querySelector('.hertz-ad-sidebar')) {
-        RefreshAds();
-        safelyEvalAdScript('sidebar', Script);
+    const Script = app.forum.attribute('hertz-ads.ad-code.sidebar.js') as string;
+    
+    // ✅ 修复：互斥逻辑
+    if (Script) {
+      safelyEvalAdScript('sidebar', Script);
+    } else {
+      RefreshAds();
     }
   });
 }
